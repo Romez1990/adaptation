@@ -8,5 +8,10 @@ python_version = "3.9"
 
 [packages]
 django = "*"
+djangorestframework = "*"
+django-rest-auth = "*"
+django-allauth = "*"
+python-dotenv = "*"
+psycopg2 = "*"
 
 [dev-packages]
