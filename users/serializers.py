@@ -29,7 +29,7 @@ from .models import (
 class ProfileSerializer(ModelSerializer):
     class Meta:
         model = Profile
-        fields = ['id', 'first_name', 'last_name', 'email', 'type', 'date_joined']
+        fields = ['id', 'first_name', 'last_name', 'email', 'type', 'date_joined', 'department', 'position', 'telegram']
 
     id = CharField(source='user.id', read_only=True)
     first_name = CharField(source='user.first_name', read_only=True)
