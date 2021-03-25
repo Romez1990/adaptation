@@ -4,17 +4,14 @@ function auth(){
     console.log($(this).serialize());
 }
 
-$( "#form-user" ).on( "submit", function( event ) {
+$( "#form-user" ).on( "submit", async function( event ) {
     event.preventDefault();
 
     let dataAuthUser = $('#form-user').serialize();
 
-    console.log(dataAuthUser);
-
-    request('auth/login/','post',dataAuthUser)
-
+    const result = await request('auth/login/','post',dataAuthUser)
+    console.log(result);
 });
-
 
 function request(url, method, body) {
     const baseUrl = '/api/';
