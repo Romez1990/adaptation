@@ -37,6 +37,8 @@ class ProfileSerializer(ModelSerializer):
     email = EmailField(source='user.email', read_only=True)
     date_joined = DateTimeField(source='user.date_joined', read_only=True)
     type = SerializerMethodField()
+    department = CharField(source='department.name')
+    position = CharField(source='position.name')
 
     def get_type(self, profile):
         user = profile.user
