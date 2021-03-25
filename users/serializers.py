@@ -2,6 +2,7 @@ from django.core.validators import RegexValidator
 from rest_framework.serializers import (
     Serializer,
     ModelSerializer,
+    Field,
     IntegerField,
     CharField,
     EmailField,
@@ -24,6 +25,11 @@ from .models import (
     Department,
     Event,
 )
+
+
+class TimestampField(Field):
+    def to_representation(self, value):
+        return round(value.timestamp())
 
 
 class ProfileSerializer(ModelSerializer):
@@ -78,3 +84,5 @@ class EventSerializer(ModelSerializer):
     class Meta:
         model = Event
         fields = '__all__'
+
+    deadline = TimestampField()
