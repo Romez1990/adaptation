@@ -3,7 +3,7 @@ function request(url, method, body) {
     return new Promise((resolve, reject) =>
         $.ajax(baseUrl + url, {
             type: method,
-            body,
+            data: body,
             success: resolve,
             error: reject,
         })
@@ -11,7 +11,7 @@ function request(url, method, body) {
 }
 
 async function main() {
-    const result = await request('auth/login/', {
+    const result = await request('auth/login/',  'post', {
         email: 'admin@example.com',
         password: 'adaptation',
     });
