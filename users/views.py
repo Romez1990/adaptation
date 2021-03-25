@@ -48,4 +48,7 @@ class DepartmentViewSet(ModelViewSet):
 
 class EventViewSet(ModelViewSet):
     serializer_class = EventSerializer
-    queryset = Event.objects.all()
+
+    def get_queryset(self):
+        user = self.request.user
+        return Event.objects.filter(user=user)
