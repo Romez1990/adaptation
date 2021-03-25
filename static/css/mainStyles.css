@@ -455,7 +455,7 @@ width:  45%;
     display: none;
 }
 
-.btn-check.disable{
+.btn-check.true{
     display: none;
 }
 
@@ -463,7 +463,7 @@ width:  45%;
     margin-top: 10px;
 }
 
-.card .check{
+.card .check-true{
     display: block;
     color: #38d39f;
     height: 50px;

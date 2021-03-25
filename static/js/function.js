@@ -6,18 +6,32 @@ if (!localStorage.getItem('token') && window.location.href.indexOf('/auth/') ===
 $('#user-page-name').html(`${localStorage.getItem('userName')}`);
 
 
-if(window.location.href.indexOf('/user/') >0){
+if (window.location.href.indexOf('/user/') > 0) {
     $('#user-page-name').html(`${localStorage.getItem('userName')}`);
-     $.ajax({
-            url: '/../api/auth/profile/',
-            type: 'GET',
-            async: 'false',
-            dataType: 'json',
-            headers: {'Authorization': `Token ${localStorage.getItem('token')}`},
-            success: function (result){
-                showUserCard(result);
-            },
-        })
+    $.ajax({
+        url: '/../api/auth/profile/',
+        type: 'GET',
+        async: 'false',
+        dataType: 'json',
+        headers: {'Authorization': `Token ${localStorage.getItem('token')}`},
+        success: function (result) {
+            showUserCard(result);
+        },
+    })
+}
+
+if (window.location.href.indexOf('/events/') > 0) {
+    $('#user-page-name').html(`${localStorage.getItem('userName')}`);
+    $.ajax({
+        url: '/../api/event/',
+        type: 'GET',
+        async: 'false',
+        dataType: 'json',
+        headers: {'Authorization': `Token ${localStorage.getItem('token')}`},
+        success: function (result) {
+            showUserEvents(result);
+        },
+    })
 }
 
 
@@ -37,26 +51,54 @@ $("#form-user").on("submit", async function (event) {
     const userInfo = await getUser();
     localStorage.setItem('userStatus', userInfo['type']);
     localStorage.setItem('userName', `${userInfo['first_name']} ${userInfo['last_name']}`);
-        localStorage.setItem('userId', `${userInfo['id']}`);
+    localStorage.setItem('userId', `${userInfo['id']}`);
 
     window.location.href = '/main/'
 });
 
 
-$('#main-page').on('click',  (e)=>{
-
+$('#main-page').on('click', (e) => {
     e.preventDefault();
     window.location.href = '/main/'
 })
 
-$('#userPage').on('click',  (e)=>{
+$('#user-page').on('click', (e) => {
     e.preventDefault();
     window.location.href = '/user/'
 })
 
+$('#events-page').on('click', (e) => {
+    e.preventDefault();
+    window.location.href = '/events/'
+})
 
-function showUserCard(userData){
-    document.querySelector('#user-cars-page').innerHTML =  `
+$('#documents-page').on('click', (e) => {
+    e.preventDefault();
+    window.location.href = '/documents/'
+})
+
+
+function showUserEvents(eventsData) {
+    for (let value of eventsData) {
+        console.log(value)
+        document.querySelector('#events-list').innerHTML += `
+             <div class="card red">
+                    <svg class="check-${value['completed']}" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
+                         role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path fill="currentColor"
+                              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
+                    </svg>
+                    <h3 class="event-date">${value['date']}</h3>
+                    <p class="event-time">${value['name']}</p>
+                    <p class="event-description">${value['description']}</p>
+                    <span class="status-event green"></span>
+                    <button  id="btn-complete" class="${value['completed']} btn-check btn green">Выполнил</button>
+             </div>`
+    }
+}
+
+function showUserCard(userData) {
+    document.querySelector('#user-cars-page').innerHTML = `
                 <div class="user-card">
             <div class="wrapper">
                 <div class="left">
@@ -145,6 +187,6 @@ function request(url, method, body, head) {
 
 function isTrainee() {
     if (localStorage.getItem('userStatus') === 'trainee') {
-    $('#mentor').css('display','none');
-}
+        $('#mentor-page').css('display', 'none');
+    }
 }
