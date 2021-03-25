@@ -36,5 +36,5 @@ class Event(Model):
     user = ForeignKey(User, on_delete=PROTECT, related_name='events')
     name = CharField(max_length=255)
     description = TextField()
-    deadline = DateTimeField(auto_now_add=True)
+    deadline = DateTimeField()
     completed = BooleanField()

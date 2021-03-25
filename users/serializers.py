@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.core.validators import RegexValidator
 from rest_framework.serializers import (
     Serializer,
@@ -28,6 +29,9 @@ from .models import (
 
 
 class TimestampField(Field):
+    def to_internal_value(self, data):
+        return datetime.fromtimestamp(data)
+
     def to_representation(self, value):
         return round(value.timestamp())
 
