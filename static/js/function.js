@@ -125,6 +125,7 @@ function userCompletedEvent(eventId) {
             console.log(result);
         },
     })
+    document.querySelector('#events-list').innerHTML ='';
         $.ajax({
         url: '/../api/event/',
         type: 'GET',
