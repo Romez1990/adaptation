@@ -3,7 +3,11 @@ if (!localStorage.getItem('token') && window.location.href.indexOf('/auth/') ===
     console.log(window.location.href)
 }
 
+$('#user-page-name').html(`${localStorage.getItem('userName')}`);
+
+
 if(window.location.href.indexOf('/user/') >0){
+    $('#user-page-name').html(`${localStorage.getItem('userName')}`);
      $.ajax({
             url: '/../api/auth/profile/',
             type: 'GET',
@@ -15,6 +19,7 @@ if(window.location.href.indexOf('/user/') >0){
             },
         })
 }
+
 
 isTrainee()
 
@@ -31,14 +36,24 @@ $("#form-user").on("submit", async function (event) {
 
     const userInfo = await getUser();
     localStorage.setItem('userStatus', userInfo['type']);
+    localStorage.setItem('userName', `${userInfo['first_name']} ${userInfo['last_name']}`);
+        localStorage.setItem('userId', `${userInfo['id']}`);
 
     window.location.href = '/main/'
 });
 
-$('#userPage').on('click', async (e)=>{
+
+$('#main-page').on('click',  (e)=>{
+
+    e.preventDefault();
+    window.location.href = '/main/'
+})
+
+$('#userPage').on('click',  (e)=>{
     e.preventDefault();
     window.location.href = '/user/'
 })
+
 
 function showUserCard(userData){
     document.querySelector('#user-cars-page').innerHTML =  `
@@ -55,7 +70,7 @@ function showUserCard(userData){
                         <div class="info_data">
                             <div class="data">
                                 <h4>Телефон:</h4>
-                                <p>+79081720229</p>
+                                <p>${userData['phone']}</p>
                             </div>
                             <div class="data">
                                 <h4>Telegram:</h4>
@@ -111,6 +126,7 @@ $('#logout').on('click', (e) => {
     e.preventDefault();
     localStorage.removeItem('token');
     localStorage.removeItem('userStatus');
+    localStorage.removeItem('userName');
     window.location.href = '/auth/'
 })
 
