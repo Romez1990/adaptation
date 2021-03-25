@@ -7,6 +7,10 @@
     <h1>Server works fine!</h1>
 {% endblock %}
 
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+{% endblock %}
+
 {% block scripts %}
     <script src="{% static 'script.js' %}"></script>
 {% endblock %}
