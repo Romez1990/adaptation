@@ -80,20 +80,89 @@ $('#documents-page').on('click', (e) => {
 
 function showUserEvents(eventsData) {
     for (let value of eventsData) {
+        const dateEvent = new Date(value['deadline'] * 1000);
+        const dateEventString = dateEvent.toLocaleDateString('ru');
+        const nowDate = new Date();
+        const nowDateString = nowDate.toLocaleDateString('ru');
+
+
+        let deadLine = Math.ceil(Math.abs(dateEvent.getTime() - nowDate.getTime()) / (1000 * 3600 * 24));
+
+        if (deadLine < 10) {
+            value['status'] = 'red';
+        } else if (deadLine > 10 && deadLine < 14) {
+            value['status'] = 'orange';
+        } else {
+            value['status'] = '';
+        }
+
         console.log(value)
         document.querySelector('#events-list').innerHTML += `
-             <div class="card red">
+             <div class="card ${value['status']}">
                     <svg class="check-${value['completed']}" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
                          role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                         <path fill="currentColor"
                               d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
                     </svg>
-                    <h3 class="event-date">${value['date']}</h3>
+                    <h3 class="event-date">${dateEventString}</h3>
                     <p class="event-time">${value['name']}</p>
                     <p class="event-description">${value['description']}</p>
                     <span class="status-event green"></span>
-                    <button  id="btn-complete" class="${value['completed']} btn-check btn green">Выполнил</button>
+                    <button onclick="userCompletedEvent(${value['id']})"  id="btn-complete" class="${value['completed']} btn-check btn green">Выполнил</button>
              </div>`
+    }
+}
+
+function userCompletedEvent(eventId) {
+    $.ajax({
+        url: `/../api/event/${eventId}/`,
+        type: 'PATCH',
+        async: 'false',
+        data: {'completed': 'true'},
+        dataType: 'json',
+        headers: {'Authorization': `Token ${localStorage.getItem('token')}`},
+        success: function (result) {
+            console.log(result);
+        },
+    })
+        $.ajax({
+        url: '/../api/event/',
+        type: 'GET',
+        async: 'false',
+        dataType: 'json',
+        headers: {'Authorization': `Token ${localStorage.getItem('token')}`},
+        success: function (result) {
+            showUserEvents(result);
+        },
+    })
+}
+
+
+//Выход
+$('#logout').on('click', (e) => {
+    e.preventDefault();
+    localStorage.removeItem('token');
+    localStorage.removeItem('userStatus');
+    localStorage.removeItem('userName');
+    window.location.href = '/auth/'
+})
+
+function request(url, method, body, head) {
+    const baseUrl = '/api/';
+    return new Promise((resolve, reject) =>
+        $.ajax(baseUrl + url, {
+            type: method,
+            headers: head,
+            data: body,
+            success: resolve,
+            error: reject,
+        })
+    );
+}
+
+function isTrainee() {
+    if (localStorage.getItem('userStatus') === 'trainee') {
+        $('#mentor-page').css('display', 'none');
     }
 }
 
@@ -161,32 +230,4 @@ function getUser() {
             error: reject
         })
     );
-}
-
-//Выход
-$('#logout').on('click', (e) => {
-    e.preventDefault();
-    localStorage.removeItem('token');
-    localStorage.removeItem('userStatus');
-    localStorage.removeItem('userName');
-    window.location.href = '/auth/'
-})
-
-function request(url, method, body, head) {
-    const baseUrl = '/api/';
-    return new Promise((resolve, reject) =>
-        $.ajax(baseUrl + url, {
-            type: method,
-            headers: head,
-            data: body,
-            success: resolve,
-            error: reject,
-        })
-    );
-}
-
-function isTrainee() {
-    if (localStorage.getItem('userStatus') === 'trainee') {
-        $('#mentor-page').css('display', 'none');
-    }
 }
