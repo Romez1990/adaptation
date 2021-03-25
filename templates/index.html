@@ -1,16 +1,99 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Server status{% endblock %}
-
-{% block content %}
-    <h1>Server works fine!</h1>
+{% block styles %}
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 {% endblock %}
 
-{% block styles %}
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+{% block title %}login{% endblock %}
+
+{% block content %}
+    <img src="{% static 'img/wave.png' %}" alt="" class="wave">
+    <main>
+        <h1 class="titleText">GreenAtom</h1>
+        <div class="container">
+            <div class="img">
+                <img src="{% static 'img/undraw_Code_thinking_re_gka2.svg' %}" alt="">
+            </div>
+            <div class="login-container">
+                <div class="switch">
+                    <div class="switch-btn">
+                        <div class="login" onclick="tab1()"><p>Авторизация</p></div>
+                        <div class="registration" onclick="tab2();"><p>Регистрация</p></div>
+                    </div>
+                </div>
+                <div class="outer">
+                    <form id="form-user">
+                        <div id="page" class="page1">
+                            <div class="input-div one">
+                                <div class="i">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div>
+                                    <h5>E-mail</h5>
+                                    <input name="email" type="text" class="input">
+                                </div>
+                            </div>
+
+                            <div class="input-div tow">
+                                <div class="i">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                                <div>
+                                    <h5>Пароль</h5>
+                                    <input name="password" type="password" class="input">
+                                </div>
+                            </div>
+
+                            <a href="#">Forgot Password?</a>
+                            <button type="submit" class="btn btn-white btn-animate">Войти</button>
+                        </div>
+
+                        <div id="page">
+                            <div class="input-div one">
+                                <div class="i">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div>
+                                    <h5>Логин:</h5>
+                                    <input type="text" class="input">
+                                </div>
+                            </div>
+
+                            <div class="input-div">
+                                <div class="i">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                                <div>
+                                    <h5>Должность:</h5>
+                                    <input type="password" class="input">
+                                </div>
+                            </div>
+
+                            <div class="input-div tow">
+                                <div class="i">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                                <div>
+                                    <h5>E-mail:</h5>
+                                    <input type="password" class="input">
+                                </div>
+                            </div>
+
+                            <a href="#">Forgot Password?</a>
+                            <button type="submit" class="btn btn-white btn-animate">Отправить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
 {% endblock %}
 
 {% block scripts %}
-        <script src="{% static 'js/function.js' %}"></script>
+    <script src="{% static 'js/fontAwesome/all.js' %}"></script>
+    <script src="{% static 'js/scripts.js' %}"></script>
+    <script src="{% static 'js/function.js' %}"></script>
 {% endblock %}
