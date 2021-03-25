@@ -1,4 +1,4 @@
-async function request(url, method, body) {
+function request(url, method, body) {
     const baseUrl = '/api/';
     return new Promise((resolve, reject) =>
         $.ajax(baseUrl + url, {
