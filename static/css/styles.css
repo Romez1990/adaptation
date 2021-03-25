@@ -1,0 +1,350 @@
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.titleText{
+    font-family: 'Poppins','Fira Sans', sans-serif;
+    align-items: center;
+    text-align: center;
+    font-size: 3rem;
+    text-transform: uppercase;
+    color: #333;
+    margin-top: 5%;
+}
+
+.wave{
+    position: fixed;
+    height: 100%;
+    left: 0;
+    bottom: 0;
+    z-index: -1;
+}
+
+.container{
+    box-sizing: border-box;
+    width: 100vw;
+    height: 75vh;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-gap: 7rem;
+    padding: 0 2rem;
+
+}
+
+.img{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.img img{
+    width: 500px;
+}
+
+.login-container{
+    justify-content: center;
+    font-family: 'Poppins','Fira Sans', sans-serif;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+form{
+    width: 360px;
+}
+
+form h2{
+    font-size: 2.4rem;
+    text-transform: uppercase;
+    margin: 15px 0;
+    color: #333;
+}
+
+.input-div{
+    position: relative;
+    display: grid;
+    grid-template-columns: 7% 93%;
+    margin: 25px 0;
+    padding: 5px 0;
+    border-bottom: 2px solid #d9d9d9;
+}
+
+.input-div::after, .input-div::before{
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    width: 50%;
+    height: 2px;
+
+    transition: 0.3s;
+}
+
+.input-div::after{
+    right: 50%;
+}
+
+.input-div::before{
+    left: 50%;
+}
+
+.input-div.focus .i{
+    color: #38d39f
+}
+
+.input-div.focus div h5{
+    margin-top: 15px;
+    top: -5px;
+    font-size: 14px;
+}
+
+.input-div.focus::after, .input-div.focus::before{
+    width: 50%;
+    background-color: #38d39f;
+}
+
+.input-div.one{
+    margin-top: 0;
+}
+
+.input-div.two{
+    margin-bottom: 4px;
+}
+
+.i{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #d9d9d9;
+    transition: 0.3s;
+}
+
+.input-div > div{
+    position: relative;
+    height: 45px;
+}
+
+.input-div > div h5{
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.input{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border: none;
+    outline: none;
+    background: none;
+    padding: 0.5rem 0.7rem;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+a{
+    display: block;
+    text-align: right;
+    text-decoration: none;
+    color: #999;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+a:hover{
+    color: #38d39f;
+}
+
+.btn{
+    border:none;
+    display: block;
+    width: 100%;
+    height: 50px;
+    border-radius: 25px;
+    margin: 1rem 0;
+    font-size: 1.2rem;
+    outline: none;
+    background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    color: #fff;
+    font-family: 'Poppins','Fira Sans', sans-serif;
+    text-transform: uppercase;
+    background-size: 200%;
+}
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+.btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+.btn::after {
+    width: 100%;
+    height: 50px;
+    border-radius: 25px;
+    transition: all 0.4s;
+}
+.btn:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0;
+}
+.btn-animated {
+    animation: moveInBottom 5s ease-out;
+    animation-fill-mode: backwards;
+}
+
+.switch{
+    justify-content: center;
+    width: 100%;
+    display: flex;
+}
+.switch-btn{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.switch-btn p{
+    text-align: center;
+}
+
+.login{
+    color: #fff;
+    border-top-left-radius: 30px;
+    text-align: center;
+    padding: 20px 30px;
+    background: linear-gradient(45deg,#00d5fc,#046af6);
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.registration{
+    background:  #d9d9d9;
+    border-top-right-radius: 30px;
+    padding: 20px 30px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.outer{
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+#form-user{
+    width: 200%;
+    position: relative;
+    display: flex;
+    margin: auto;
+    transition: 0.2s ease-in-out;
+}
+
+#page{
+    width: 30%;
+    margin: auto;
+}
+
+@keyframes moveInBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+
+@media screen and(max-width:1050px){
+    .container{
+        grid-gap: 5rem;
+    }
+}
+
+@media screen and (max-width: 1000px){
+    form{
+        width: 290px;
+    }
+
+    form h2{
+        font-size: 2.4rem;
+        margin: 8px 0;
+    }
+
+    .img img{
+        width: 400px;
+    }
+}
+
+@media screen and (max-width: 900px){
+    .img{
+        display: none;
+    }
+
+    .container{
+        grid-template-columns: 1fr;
+    }
+
+    .wave{
+        display: none;
+    }
+
+    .login-container{
+        justify-content: center;
+    }
+}
