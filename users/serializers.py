@@ -30,7 +30,7 @@ from .models import (
 
 class TimestampField(Field):
     def to_internal_value(self, data):
-        return datetime.fromtimestamp(data)
+        return datetime.fromtimestamp(int(data))
 
     def to_representation(self, value):
         return round(value.timestamp())

@@ -316,15 +316,35 @@ function showModalEventList(traineeId) {
     });
 }
 
-function showModalCreateEvent(traineeId){
-    $('#userId').attr('value',traineeId);
-     $("#create-event-modal").modal({
+function showModalCreateEvent(traineeId) {
+    $('#userId').attr('value', traineeId);
+    $("#create-event-modal").modal({
         fadeDuration: 200
     });
 }
 
 $('#btn-send-event-model').click(() => {
+    const userId = $('#userId').val();
+    const nameEvent = $('.name-event').val();
+    const dateEvent = document.querySelector('.data-event').valueAsNumber / 1000
+    const descriptionEvent = $('.descriptionEvent').val();
 
-    console.log($('.data-event').val());
 
+    $.ajax({
+        url: '/../api/event/',
+        type: 'POST',
+        async: 'false',
+        data: {
+            "user": userId,
+            "name": nameEvent,
+            "deadline": dateEvent,
+            "description": descriptionEvent,
+            "completed": false
+        },
+        dataType: 'json',
+        headers: {'Authorization': `Token ${localStorage.getItem('token')}`},
+        success: function (result) {
+            console.log('true');
+        },
+    })
 })
