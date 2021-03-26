@@ -5,7 +5,6 @@ if (!localStorage.getItem('token') && window.location.href.indexOf('/auth/') ===
 
 $('#user-page-name').html(`${localStorage.getItem('userName')}`);
 
-
 if (window.location.href.indexOf('/user/') > 0) {
     $('#user-page-name').html(`${localStorage.getItem('userName')}`);
     $.ajax({
@@ -30,6 +29,20 @@ if (window.location.href.indexOf('/events/') > 0) {
         headers: {'Authorization': `Token ${localStorage.getItem('token')}`},
         success: function (result) {
             showUserEvents(result);
+        },
+    })
+}
+
+if (window.location.href.indexOf('/mentor') > 0) {
+    $('#user-page-name').html(`${localStorage.getItem('userName')}`);
+    $.ajax({
+        url: '/../api/mentor/trainee/',
+        type: 'GET',
+        async: 'false',
+        dataType: 'json',
+        headers: {'Authorization': `Token ${localStorage.getItem('token')}`},
+        success: function (result) {
+            showTraineesMentor(result)
         },
     })
 }
@@ -77,11 +90,66 @@ $('#documents-page').on('click', (e) => {
     window.location.href = '/documents/'
 })
 
-$('#mentor-page-btn').on('click', (e)=>{
+$('#mentor-page-btn').on('click', (e) => {
     e.preventDefault();
     window.location.href = '/mentor/'
 })
 
+function showTraineesMentor(listTrainees) {
+    for (let value of listTrainees) {
+        document.querySelector('.trainees-list').innerHTML += `
+             <div class="trainees-card">
+                    <div class="info">
+                        <h3>${value['first_name']} ${value['last_name']}</h3>
+                        <div class="info_data">
+                            <div class="data">
+                                <h4>Телефон:</h4>
+                                <p>${value['phone']}</p>
+                            </div>
+                            <div class="data">
+                                <h4>Telegram:</h4>
+                                <div class="list-telegram">
+                                    <a target="_blank" href="https://t.me/${value['telegram'].replace('@', '')}">
+                                        <svg class="icon-telegram" aria-hidden="true" focusable="false"
+                                             data-prefix="fab" data-icon="telegram-plane"
+                                             class="svg-inline--fa fa-telegram-plane fa-w-14" role="img"
+                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                            <path fill="currentColor"
+                                                  d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z"></path>
+                                        </svg>
+                                    </a>
+                                    <p>@dner56</p>
+                                </div>
+                            </div>
+                            <div class="data">
+                                <h4>Email:</h4>
+                                <p>${value['email']}</p>
+                            </div>
+                        </div>
+
+                        <div class="project">
+                            <h3>Работа</h3>
+                            <div class="project_data">
+                                <div class="data">
+                                    <h4>Цех:</h4>
+                                    <p>${value['department']}</p>
+                                </div>
+                                <div class="data">
+                                    <h4>Должность:</h4>
+                                    <p>${value['position']}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btn-list">
+                        <a onclick="showModalEventList(${value['id']})" class="btn-model-cards btn green">Мероприятия</a>
+                        <a onclick="showModalCreateEvent(${value['id']})" class="btn-model-create-event btn blue" href="#create-event-modal">Создать мероприятие</a>
+                    </div>
+                </div>
+        `
+        console.log(value);
+    }
+}
 
 function showUserEvents(eventsData) {
     for (let value of eventsData) {
@@ -127,50 +195,19 @@ function userCompletedEvent(eventId) {
         dataType: 'json',
         headers: {'Authorization': `Token ${localStorage.getItem('token')}`},
         success: function (result) {
-              $.ajax({
+            $.ajax({
                 url: '/../api/event/',
                 type: 'GET',
                 async: 'false',
                 dataType: 'json',
                 headers: {'Authorization': `Token ${localStorage.getItem('token')}`},
                 success: function (result) {
-                     document.querySelector('#events-list').innerHTML = '';
+                    document.querySelector('#events-list').innerHTML = '';
                     showUserEvents(result);
                 },
             })
         },
     })
-}
-
-
-//Выход
-$('#logout').on('click', (e) => {
-    e.preventDefault();
-    localStorage.removeItem('token');
-    localStorage.removeItem('userStatus');
-    localStorage.removeItem('userName');
-    window.location.href = '/auth/'
-})
-
-function request(url, method, body, head) {
-    const baseUrl = '/api/';
-    return new Promise((resolve, reject) =>
-        $.ajax(baseUrl + url, {
-            type: method,
-            headers: head,
-            data: body,
-            success: resolve,
-            error: reject,
-        })
-    );
-}
-
-function isTrainee() {
-    if (localStorage.getItem('userStatus') === 'trainee') {
-        $('#mentor-page').css('display', 'none');
-    }else{
-        $('#mentor-page').css('display', '');
-    }
 }
 
 function showUserCard(userData) {
@@ -193,7 +230,7 @@ function showUserCard(userData) {
                             <div class="data">
                                 <h4>Telegram:</h4>
                                 <div class="list-telegram">
-                                    <a href="#">
+                                    <a target="_blank" href="https://t.me/${userData['telegram'].replace('@', '')}">
                                         <svg class="icon-telegram" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="telegram-plane" class="svg-inline--fa fa-telegram-plane fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z"></path></svg>
                                     </a>
                                     <p>${userData['telegram']}</p>
@@ -225,6 +262,37 @@ function showUserCard(userData) {
     `
 }
 
+//Выход
+$('#logout').on('click', (e) => {
+    e.preventDefault();
+    localStorage.removeItem('token');
+    localStorage.removeItem('userStatus');
+    localStorage.removeItem('userName');
+    window.location.href = '/auth/'
+})
+
+function request(url, method, body, head) {
+    const baseUrl = '/api/';
+    return new Promise((resolve, reject) =>
+        $.ajax(baseUrl + url, {
+            type: method,
+            headers: head,
+            data: body,
+            success: resolve,
+            error: reject,
+        })
+    );
+}
+
+function isTrainee() {
+    if (localStorage.getItem('userStatus') === 'trainee') {
+        $('#mentor-page').css('display', 'none');
+    } else {
+        $('#mentor-page').css('display', '');
+    }
+}
+
+
 function getUser() {
     return new Promise((resolve, reject) =>
         $.ajax({
@@ -238,3 +306,25 @@ function getUser() {
         })
     );
 }
+
+
+//Modal
+function showModalEventList(traineeId) {
+    console.log(traineeId)
+    $("#modal-event").modal({
+        fadeDuration: 200
+    });
+}
+
+function showModalCreateEvent(traineeId){
+    $('#userId').attr('value',traineeId);
+     $("#create-event-modal").modal({
+        fadeDuration: 200
+    });
+}
+
+$('#btn-send-event-model').click(() => {
+
+    console.log($('.data-event').val());
+
+})

@@ -673,3 +673,17 @@ width:  45%;
     color: #ffffff;
     font-size: 40px;
 }
+
+.search{
+    display: flex;
+    align-content:center;
+    justify-content: center;
+}
+
+.search .search-box .input-search{
+   box-shadow: 3px 3px 21px 0px rgba(0, 0, 0, 0.4);
+}
+
+.search .search-box .btn-search{
+    background: #38d39f;
+}

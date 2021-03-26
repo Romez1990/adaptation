@@ -44,22 +44,22 @@ function tab1() {
 // document.getElementById('themeButton').onclick = toggleTheme;
 
 
-$('.btn-model-cards').click(()=>{
-    $("#modal-event").modal({
-        fadeDuration: 200
-    });
-})
-
-$('.btn-model-create-event').click(()=>{
-    $("#create-event-modal").modal({
-        fadeDuration: 200
-    });
-
-})
-
-
-$('#btn-send-event-model').click(()=> {
-    console.log('sdfsdf');
-    console.log($('.data-event').val());
-
-})
+// $('.btn-model-cards').click(()=>{
+//     $("#modal-event").modal({
+//         fadeDuration: 200
+//     });
+// })
+//
+// $('.btn-model-create-event').click(()=>{
+//     $("#create-event-modal").modal({
+//         fadeDuration: 200
+//     });
+//
+// })
+//
+//
+// $('#btn-send-event-model').click(()=> {
+//     console.log('sdfsdf');
+//     console.log($('.data-event').val());
+//
+// })
