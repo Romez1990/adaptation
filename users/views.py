@@ -2,6 +2,7 @@ from typing import (
     Type,
 )
 from django.http import Http404
+from rest_framework.decorators import action
 from rest_framework.generics import (
     GenericAPIView,
     RetrieveUpdateAPIView,
@@ -61,10 +62,9 @@ class TraineeViewSet(ModelViewSet):
         user = self.request.user
         return user.trainees
 
-
-class TraineeEventViewSet(ModelViewSet):
-    serializer_class = EventSerializer
-
-    def get_queryset(self):
-        user = self.request.user
-        return Event.objects.filter(user__profile__mentor__user=user)
+    @action(detail=True, methods=['get'])
+    def events(self, request: Request, **kwargs):
+        trainee = self.get_object()
+        events = trainee.user.events
+        serializer = EventSerializer(events, many=True)
+        return Response(serializer.data)

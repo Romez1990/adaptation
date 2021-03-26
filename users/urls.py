@@ -18,8 +18,7 @@ router.register('department', DepartmentViewSet, basename='department')
 router.register('event', EventViewSet, basename='event')
 
 mentor_router = SimpleRouter()
-mentor_router.register('trainee', TraineeViewSet, basename='position')
-# mentor_router.register('trainee', TraineeViewSet, basename='position')
+mentor_router.register('trainee', TraineeViewSet, basename='trainee')
 
 urlpatterns = [
     path('accounts/', include('allauth.urls')),
