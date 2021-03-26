@@ -513,6 +513,10 @@ width:  45%;
     box-shadow:-5px -5px 10px 7px rgba(255, 8, 68, 0.25), 5px 5px 30px 20px rgba(255, 8, 68, 0.25);
 }
 
+.card.green{
+    box-shadow: 3px 3px 20px 12px rgb(138 231 200);
+}
+
 .card:hover {
     transform: scale(0.9, 0.9);
     box-shadow: 5px 5px 30px 15px rgba(0,0,0,0.25),
@@ -686,4 +690,8 @@ width:  45%;
 
 .search .search-box .btn-search{
     background: #38d39f;
+}
+
+#modal-event{
+    background: #fbf8fb;
 }

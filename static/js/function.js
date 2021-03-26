@@ -145,9 +145,7 @@ function showTraineesMentor(listTrainees) {
                         <a onclick="showModalEventList(${value['id']})" class="btn-model-cards btn green">Мероприятия</a>
                         <a onclick="showModalCreateEvent(${value['id']})" class="btn-model-create-event btn blue" href="#create-event-modal">Создать мероприятие</a>
                     </div>
-                </div>
-        `
-        console.log(value);
+                </div>`
     }
 }
 
@@ -167,6 +165,10 @@ function showUserEvents(eventsData) {
             value['status'] = 'orange';
         } else {
             value['status'] = '';
+        }
+
+        if (value['completed']) {
+            value['status'] = 'green'
         }
 
         console.log(value)
@@ -308,12 +310,59 @@ function getUser() {
 }
 
 
+function showTraineeEventList(eventList) {
+    for (value of eventList) {
+
+        let dateEvent = new Date(value['deadline'] * 1000);
+        let dateEventString = dateEvent.toLocaleDateString('ru');
+        let nowDate = new Date();
+        let nowDateString = nowDate.toLocaleDateString('ru');
+
+        let deadLine = Math.ceil(Math.abs(dateEvent.getTime() - nowDate.getTime()) / (1000 * 3600 * 24));
+
+        if (deadLine < 10) {
+            value['status'] = 'red';
+        } else if (deadLine => 10 && deadLine <= 14) {
+            value['status'] = 'orange';
+        } else {
+            value['status'] = '';
+        }
+
+        if (value['completed']) {
+            value['status'] = 'green'
+        }
+
+        document.querySelector('#model-cards').innerHTML += `
+             <div class="card ${value['status']}">
+                    <svg class="check-${value['completed']}" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
+                         role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path fill="currentColor"
+                              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
+                    </svg>
+                        <h3 class="event-date">${dateEventString}</h3>
+                        <p class="event-time">${value['name']}</p>
+                        <p class="event-description">${value['description']}</p>
+                        <span class="status-event green"></span>
+                    </div>`
+    }
+}
+
 //Modal
 function showModalEventList(traineeId) {
-    console.log(traineeId)
+    document.querySelector('#model-cards').innerHTML = '';
     $("#modal-event").modal({
         fadeDuration: 200
     });
+    $.ajax({
+        url: `http://127.0.0.1:8000/api/mentor/trainee/${traineeId}/events/`,
+        type: 'GET',
+        async: 'false',
+        dataType: 'json',
+        headers: {'Authorization': `Token ${localStorage.getItem('token')}`},
+        success: function (result) {
+            showTraineeEventList(result);
+        },
+    })
 }
 
 function showModalCreateEvent(traineeId) {
@@ -326,9 +375,8 @@ function showModalCreateEvent(traineeId) {
 $('#btn-send-event-model').click(() => {
     const userId = $('#userId').val();
     const nameEvent = $('.name-event').val();
-    const dateEvent = document.querySelector('.data-event').valueAsNumber / 1000
+    const dateEvent = document.querySelector('.data-event').valueAsNumber / 1000;
     const descriptionEvent = $('.descriptionEvent').val();
-
 
     $.ajax({
         url: '/../api/event/',
@@ -344,7 +392,9 @@ $('#btn-send-event-model').click(() => {
         dataType: 'json',
         headers: {'Authorization': `Token ${localStorage.getItem('token')}`},
         success: function (result) {
-            console.log('true');
-        },
+            $('.name-event').val('');
+            $('.data-event').val('')
+            $('.descriptionEvent').val('');
+        }
     })
 })
