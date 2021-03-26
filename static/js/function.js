@@ -77,6 +77,11 @@ $('#documents-page').on('click', (e) => {
     window.location.href = '/documents/'
 })
 
+$('#mentor-page-btn').on('click', (e)=>{
+    e.preventDefault();
+    window.location.href = '/mentor/'
+})
+
 
 function showUserEvents(eventsData) {
     for (let value of eventsData) {
@@ -122,18 +127,17 @@ function userCompletedEvent(eventId) {
         dataType: 'json',
         headers: {'Authorization': `Token ${localStorage.getItem('token')}`},
         success: function (result) {
-            console.log(result);
-        },
-    })
-    document.querySelector('#events-list').innerHTML ='';
-        $.ajax({
-        url: '/../api/event/',
-        type: 'GET',
-        async: 'false',
-        dataType: 'json',
-        headers: {'Authorization': `Token ${localStorage.getItem('token')}`},
-        success: function (result) {
-            showUserEvents(result);
+              $.ajax({
+                url: '/../api/event/',
+                type: 'GET',
+                async: 'false',
+                dataType: 'json',
+                headers: {'Authorization': `Token ${localStorage.getItem('token')}`},
+                success: function (result) {
+                     document.querySelector('#events-list').innerHTML = '';
+                    showUserEvents(result);
+                },
+            })
         },
     })
 }
@@ -164,11 +168,13 @@ function request(url, method, body, head) {
 function isTrainee() {
     if (localStorage.getItem('userStatus') === 'trainee') {
         $('#mentor-page').css('display', 'none');
+    }else{
+        $('#mentor-page').css('display', '');
     }
 }
 
 function showUserCard(userData) {
-    document.querySelector('#user-cars-page').innerHTML = `
+    document.querySelector('#user-cars-page').innerHTML += `
                 <div class="user-card">
             <div class="wrapper">
                 <div class="left">
