@@ -9,12 +9,17 @@ from .views import (
     PositionViewSet,
     DepartmentViewSet,
     EventViewSet,
+    TraineeViewSet,
 )
 
-router = SimpleRouter()
-router.register('position', PositionViewSet, basename='position')
-router.register('department', DepartmentViewSet, basename='department')
-router.register('event', EventViewSet, basename='event')
+trainee_router = SimpleRouter()
+trainee_router.register('position', PositionViewSet, basename='position')
+trainee_router.register('department', DepartmentViewSet, basename='department')
+trainee_router.register('event', EventViewSet, basename='event')
+
+mentor_router = SimpleRouter()
+mentor_router.register('trainee', TraineeViewSet, basename='position')
+# mentor_router.register('trainee', TraineeViewSet, basename='position')
 
 urlpatterns = [
     path('accounts/', include('allauth.urls')),
@@ -22,7 +27,8 @@ urlpatterns = [
     path('auth/login/', LoginView.as_view(), name='login'),
     path('auth/logout/', LogoutView.as_view(), name='logout'),
     path('auth/profile/', ProfileView.as_view(), name='profile'),
-    path('', include(router.urls)),
+    path('trainee/', include(trainee_router.urls)),
+    path('mentor/', include(mentor_router.urls)),
 ]
 
 if DEBUG:

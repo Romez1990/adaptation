@@ -52,3 +52,19 @@ class EventViewSet(ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         return Event.objects.filter(user=user)
+
+
+class TraineeViewSet(ModelViewSet):
+    serializer_class = ProfileSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return user.trainees
+
+
+class TraineeEventViewSet(ModelViewSet):
+    serializer_class = EventSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return Event.objects.filter(user__profile__mentor__user=user)
