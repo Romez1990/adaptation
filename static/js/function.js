@@ -61,7 +61,6 @@ $("#form-user").on("submit", async function (event) {
     let dataAuthUser = $('#form-user').serialize();
 
     const result = await request('auth/login/', 'post', dataAuthUser)
-    console.log(result)
     localStorage.setItem('token', result.token);
 
 
@@ -185,7 +184,6 @@ function showUserEvents(eventsData) {
             value['status'] = 'green'
         }
 
-        console.log(value)
         document.querySelector('#events-list').innerHTML += `
              <div class="card ${value['status']}">
                     <svg class="check-${value['completed']}" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
@@ -448,7 +446,36 @@ $('#btn-send-document-model').click((e) => {
         contentType: false,
         headers: {'Authorization': `Token ${localStorage.getItem('token')}`},
         success: function (result) {
-            console.log(result);
         }
     })
 })
+
+
+$('#btn-search-document').click((e) => {
+    e.preventDefault();
+    let nameDocument = $('#name-document-search').val();
+
+    $.ajax({
+        url: `/api/document/${nameDocument}/search/`,
+        type: 'GET',
+        processData: false,
+        contentType: false,
+        headers: {'Authorization': `Token ${localStorage.getItem('token')}`},
+        success: function (result) {
+            document.querySelector('#search-document-lis').innerHTML = '';
+            showDocuments(result);
+        }
+    })
+
+})
+
+function showDocuments(listDocuments) {
+    for (let value of listDocuments) {
+        document.querySelector('#search-document-lis').innerHTML += `
+               <div class="document">
+               <a target="_blank" href="${value['link']}">${value['name']}</a>
+</div>
+        `
+
+    }
+}

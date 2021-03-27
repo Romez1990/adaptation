@@ -850,3 +850,17 @@ img{
 .ex-list *{
     margin: 10px;
 }
+
+#search-document-lis{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.document{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    margin: 20px 0px;
+}
