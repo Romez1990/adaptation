@@ -50,7 +50,7 @@ main {
 .main-header {
     background: #52cffe;
     margin-left: 0.1rem;
-    height: 5rem;
+    height: 4rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -250,7 +250,7 @@ main {
     display: block;
 }
 
-.search .search-box{
+.search .search-box {
     width: 300px;
 }
 
@@ -294,7 +294,29 @@ main {
 }
 
 .header-nav li {
+    margin-right: 1rem;
+    display: flex;
+    flex-direction: row;
+}
 
+.header-nav li p {
+    padding: 0;
+    text-align: center;
+}
+
+.tel-bot {
+
+}
+
+.tel-bot svg {
+    height: 20px;
+    margin: 5px;
+}
+
+.tel-bot a {
+    white-space: nowrap;
+    color: #000;
+    text-decoration: none;
 }
 
 .user-text {
@@ -704,14 +726,14 @@ main {
     background: #fbf8fb;
 }
 
-.add-document:hover{
+.add-document:hover {
     text-shadow: none;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     background: #38d39f;
 }
 
-.add-document:hover .add-document-icon{
+.add-document:hover .add-document-icon {
     color: #fbf8fb;
 }
 

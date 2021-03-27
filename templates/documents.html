@@ -85,7 +85,7 @@
                 </a>
             </li>
 
-            <li  class="nav-item">
+            <li class="nav-item">
                 <a id="map-page" href="#" class="nav-link">
                     <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="street-view"
                          class="svg-inline--fa fa-street-view fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
@@ -148,8 +148,13 @@
                     <p id="user-page-name" class="user-text"></p>
                 </li>
                 <li class="tel-bot">
-                        <svg class = 'tel-icon-nav'  aria-hidden="true" focusable="false" data-prefix="fab" data-icon="telegram-plane" class="svg-inline--fa fa-telegram-plane fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z"></path></svg>
-                        <a href="https://t.me/verygreenatom_bot">Telegram бот</a>
+                    <svg class='tel-icon-nav' aria-hidden="true" focusable="false" data-prefix="fab"
+                         data-icon="telegram-plane" class="svg-inline--fa fa-telegram-plane fa-w-14" role="img"
+                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                        <path fill="currentColor"
+                              d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z"></path>
+                    </svg>
+                    <a href="https://t.me/verygreenatom_bot">Telegram бот</a>
                 </li>
             </ul>
         </header>
@@ -185,10 +190,10 @@
             </div>
 
             <div id="create-document-modal" class="modal">
-                <form class="create-document-form"  action="#">
+                <form class="create-document-form" action="#">
                     <h2>Создание документа</h2>
                     <label for="">Файл:</label>
-                    <input class="file-document" type="file">
+                    <input id="input-file-document" class="file-document" type="file">
                     <a id="btn-send-document-model" href="#" rel="modal:close" class="btn green">Отправить</a>
                 </form>
             </div>

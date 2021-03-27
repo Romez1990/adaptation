@@ -1,7 +1,11 @@
 if (!localStorage.getItem('token') && window.location.href.indexOf('/auth/') === -1) {
     window.location.href = '/auth/'
-    console.log(window.location.href)
 }
+
+if (localStorage.getItem('token') && (window.location.pathname === '/' || window.location.pathname === '/auth/')) {
+    window.location.href = '/main/'
+}
+
 
 $('#user-page-name').html(`${localStorage.getItem('userName')}`);
 
@@ -420,20 +424,20 @@ function showModalCreateDocument() {
 
 $('#btn-send-document-model').click((e) => {
     e.preventDefault();
-    let file = document.querySelector('#tn-send-document-model').files[0];
+    let file = document.querySelector('#input-file-document').files[0];
 
     let formData = new FormData();
-    formData.append('document',file)
+    formData.append('document', file)
 
-        $.ajax({
-            url: '/../api/document/',
-            type: 'POST',
-            async: 'true',
-            data: formData,
-            dataType: 'json',
-            headers: {'Authorization': `Token ${localStorage.getItem('token')}`},
-            success: function (result) {
-                console.log(result);
-            }
-        })
+    $.ajax({
+        url: '/../api/document/',
+        type: 'POST',
+        async: 'true',
+        data: formData,
+        dataType: 'json',
+        headers: {'Authorization': `Token ${localStorage.getItem('token')}`},
+        success: function (result) {
+            console.log(result);
+        }
+    })
 })
