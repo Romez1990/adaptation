@@ -10,7 +10,7 @@ from rest_framework.generics import (
 from rest_framework.serializers import (
     Serializer,
 )
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ModelViewSet, ViewSet
 from rest_framework.exceptions import ValidationError, MethodNotAllowed
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -68,3 +68,10 @@ class TraineeViewSet(ModelViewSet):
         events = trainee.user.events
         serializer = EventSerializer(events, many=True)
         return Response(serializer.data)
+
+
+class DocumentViewSet(ViewSet):
+    def create(self, request: Request):
+        f = request.data['file']
+        print(f)
+        print(f)

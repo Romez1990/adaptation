@@ -10,12 +10,14 @@ from .views import (
     DepartmentViewSet,
     EventViewSet,
     TraineeViewSet,
+    DocumentViewSet,
 )
 
 router = SimpleRouter()
 router.register('position', PositionViewSet, basename='position')
 router.register('department', DepartmentViewSet, basename='department')
 router.register('event', EventViewSet, basename='event')
+router.register('document', DocumentViewSet, basename='document')
 
 mentor_router = SimpleRouter()
 mentor_router.register('trainee', TraineeViewSet, basename='trainee')

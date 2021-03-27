@@ -441,11 +441,9 @@ $('#btn-send-document-model').click((e) => {
     formData.append('document', file)
 
     $.ajax({
-        url: '/../api/document/',
+        url: '/api/document/',
         type: 'POST',
-        async: 'true',
         data: formData,
-        dataType: 'json',
         headers: {'Authorization': `Token ${localStorage.getItem('token')}`},
         success: function (result) {
             console.log(result);
