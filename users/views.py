@@ -77,11 +77,11 @@ class DocumentViewSet(ViewSet):
 
     def create(self, request: Request):
         uploaded_file = request.data['document']
-        uploaded_file.read()
         path = self.directory / uploaded_file.name
         self.directory.mkdir(parents=True, exist_ok=True)
         with open(path, 'wb') as file:
-            file.write(uploaded_file.read())
+            content = uploaded_file.read()
+            file.write(content)
         return Response({'detail': 'uploaded'}, 201)
 
     def list(self, request: Request):
@@ -102,3 +102,17 @@ class DocumentViewSet(ViewSet):
                 remove(file)
                 return Response(None, 204)
         raise NotFound()
+
+    @action(detail=True, methods=['get'])
+    def search(self, request: Request, pk=None):
+        file_name = pk
+        files = []
+        for file in self.directory.iterdir():
+            if file.name == '.gitignore':
+                continue
+            if file_name in file.stem:
+                files.append({
+                    'name': file.stem,
+                    'link': f'/static/documents/{file.name}',
+                })
+        return Response(files)
