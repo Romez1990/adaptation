@@ -303,10 +303,15 @@ function request(url, method, body, head) {
 function isTrainee() {
     if (localStorage.getItem('userStatus') === 'trainee') {
         $('#mentor-page').css('display', 'none');
+        $('#add-document-modal').css('display', 'none');
         $('#events-page').css('display', '');
+        $('#question-page').css('display', '');
     } else {
         $('#mentor-page').css('display', '');
+        $('#add-document-modal').css('display', '');
         $('#events-page').css('display', 'none');
+        $('#question-page').css('display', 'none');
+
     }
 }
 
@@ -418,6 +423,12 @@ $('#btn-send-event-model').click(() => {
 
 function showModalCreateDocument() {
     $("#create-document-modal").modal({
+        fadeDuration: 200
+    });
+}
+
+function showModalLevel() {
+    $("#list-ex-modal").modal({
         fadeDuration: 200
     });
 }

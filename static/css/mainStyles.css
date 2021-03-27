@@ -66,6 +66,15 @@ main {
 }
 
 .navbar {
+    padding: 0;
+    z-index: 1;
+    position: fixed;
+    background-color: var(--bg-primary);
+    transition: width 600ms ease;
+}
+
+#navbar {
+    padding: 0;
     z-index: 1;
     position: fixed;
     background-color: var(--bg-primary);
@@ -196,6 +205,7 @@ main {
     }
 
     .navbar:hover {
+        padding: 0;
         width: 16rem;
     }
 
@@ -329,8 +339,8 @@ main {
 }
 
 .icon-mess {
-    margin-right: 1rem;
-    width: 20px;
+    margin: 5px;
+    width: 15px;
 }
 
 .user-card {
@@ -455,8 +465,9 @@ main {
 }
 
 .card {
+
     position: relative;
-    margin: 10px auto;
+    margin: 10px 20px;
     width: 180px;
     /*height: 150px;*/
     padding: 10px;
@@ -746,4 +757,96 @@ main {
     margin-left: 10px;
     color: #38d39f;
     height: 20px;
+}
+
+.content-question{
+    margin: 0 auto;
+}
+
+.form-question{
+    border-radius: 10px;
+    padding: 20px;
+    background: #ffffff;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    align-content: center;
+    justify-content: center;
+}
+
+input[type='file']{
+    margin: 10px 0;
+}
+
+.form-question *{
+    margin: 10px 0;
+    border-radius: 10px;
+}
+
+.form-question input[type='text']{
+    outline: none;
+    padding: 5px;
+    border: 1px #38d39f solid;
+}
+
+.form-question input[type="submit"]{
+    width: 150px;
+    margin: 0 auto;
+}
+
+ul, #myUL {
+  list-style-type: none;
+}
+
+/* Remove margins and padding from the parent ul */
+#myUL {
+  margin: 0;
+  padding: 0;
+}
+
+/* Style the caret/arrow */
+.caret {
+    margin-left: 2rem;
+  cursor: pointer;
+  user-select: none; /* Prevent text selection */
+}
+
+/* Create the caret/arrow with a unicode, and style it */
+.caret::before {
+  content: "\25B6";
+  color: black;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+/* Rotate the caret/arrow icon when clicked on (using JavaScript) */
+.caret-down::before {
+  transform: rotate(90deg);
+}
+
+/* Hide the nested list */
+.nested {
+  display: none;
+}
+
+/* Show the nested list when the user clicks on the caret/arrow (with JavaScript) */
+.active {
+  display: block;
+}
+
+img{
+    margin: 10px;
+    border-radius: 10px;
+
+}
+
+.ex-list{
+    align-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.ex-list *{
+    margin: 10px;
 }
