@@ -135,7 +135,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = project_root / 'staticfiles'
-STATICFILES_DIRS = [project_root / 'static']
+STATIC_DIR = project_root / 'static'
+STATICFILES_DIRS = [STATIC_DIR]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 

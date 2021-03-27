@@ -444,6 +444,8 @@ $('#btn-send-document-model').click((e) => {
         url: '/api/document/',
         type: 'POST',
         data: formData,
+        processData: false,
+        contentType: false,
         headers: {'Authorization': `Token ${localStorage.getItem('token')}`},
         success: function (result) {
             console.log(result);
