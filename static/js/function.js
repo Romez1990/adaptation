@@ -36,7 +36,7 @@ if (window.location.href.indexOf('/events/') > 0) {
 if (window.location.href.indexOf('/mentor') > 0) {
     $('#user-page-name').html(`${localStorage.getItem('userName')}`);
     $.ajax({
-        url: '/../api/mentor/trainee/',
+        url: '/api/mentor/trainee/',
         type: 'GET',
         async: 'false',
         dataType: 'json',
@@ -68,6 +68,16 @@ $("#form-user").on("submit", async function (event) {
 
     window.location.href = '/main/'
 });
+
+$('#question-page').on('click', (e) => {
+    e.preventDefault();
+    window.location.href = '/question/'
+})
+
+$('#map-page').on('click', (e) => {
+    e.preventDefault();
+    window.location.href = '/map/'
+})
 
 
 $('#main-page').on('click', (e) => {
@@ -289,11 +299,12 @@ function request(url, method, body, head) {
 function isTrainee() {
     if (localStorage.getItem('userStatus') === 'trainee') {
         $('#mentor-page').css('display', 'none');
+        $('#events-page').css('display', '');
     } else {
         $('#mentor-page').css('display', '');
+        $('#events-page').css('display', 'none');
     }
 }
-
 
 function getUser() {
     return new Promise((resolve, reject) =>
@@ -372,6 +383,7 @@ function showModalCreateEvent(traineeId) {
     });
 }
 
+
 $('#btn-send-event-model').click(() => {
     const userId = $('#userId').val();
     const nameEvent = $('.name-event').val();
@@ -397,4 +409,31 @@ $('#btn-send-event-model').click(() => {
             $('.descriptionEvent').val('');
         }
     })
+})
+
+
+function showModalCreateDocument() {
+    $("#create-document-modal").modal({
+        fadeDuration: 200
+    });
+}
+
+$('#btn-send-document-model').click((e) => {
+    e.preventDefault();
+    let file = document.querySelector('#tn-send-document-model').files[0];
+
+    let formData = new FormData();
+    formData.append('document',file)
+
+        $.ajax({
+            url: '/../api/document/',
+            type: 'POST',
+            async: 'true',
+            data: formData,
+            dataType: 'json',
+            headers: {'Authorization': `Token ${localStorage.getItem('token')}`},
+            success: function (result) {
+                console.log(result);
+            }
+        })
 })
