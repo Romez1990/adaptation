@@ -1,3 +1,4 @@
+from pathlib import Path
 from os import remove
 from django.conf import settings
 from rest_framework.decorators import action
@@ -63,7 +64,7 @@ class TraineeViewSet(ModelViewSet):
 
 
 class DocumentViewSet(ViewSet):
-    directory = settings.MEDIA_ROOT / 'documents'
+    directory = Path(settings.MEDIA_ROOT) / 'documents'
 
     def create(self, request: Request):
         uploaded_file = request.data['document']

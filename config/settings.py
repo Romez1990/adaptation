@@ -139,8 +139,8 @@ STATIC_DIR = project_root / 'static'
 STATICFILES_DIRS = [STATIC_DIR]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = project_root / 'media'
+MEDIA_URL = '/mediafiles/'
+MEDIA_ROOT = str(project_root / 'mediafiles')
 
 
 REST_FRAMEWORK = {
