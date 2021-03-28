@@ -95,12 +95,12 @@ class DocumentViewSet(ViewSet):
 
     @action(detail=True, methods=['get'])
     def search(self, request: Request, pk=None):
-        file_name = pk
+        search_query = pk
         files = []
         for file in self.directory.iterdir():
             if file.name == '.gitignore':
                 continue
-            if file_name in file.stem:
+            if search_query in file.name:
                 files.append({
                     'name': file.stem,
                     'link': f'{settings.MEDIA_URL}documents/{file.name}',
