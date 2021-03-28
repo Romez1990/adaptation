@@ -1,24 +1,14 @@
 from os import remove
-from typing import (
-    Type,
-)
-from django.http import Http404
+from django.conf import settings
 from rest_framework.decorators import action
 from rest_framework.generics import (
-    GenericAPIView,
     RetrieveUpdateAPIView,
 )
-from rest_framework.serializers import (
-    Serializer,
-)
 from rest_framework.viewsets import ModelViewSet, ViewSet
-from rest_framework.exceptions import NotFound, ValidationError, MethodNotAllowed
+from rest_framework.exceptions import NotFound
 from rest_framework.request import Request
 from rest_framework.response import Response
-from rest_framework.status import HTTP_201_CREATED
-from rest_auth.registration.views import VerifyEmailView as VerifyEmailViewBase
 
-from config.settings import STATIC_DIR
 from .models import (
     Position,
     Department,
@@ -73,7 +63,7 @@ class TraineeViewSet(ModelViewSet):
 
 
 class DocumentViewSet(ViewSet):
-    directory = STATIC_DIR / 'documents'
+    directory = settings.MEDIA_ROOT / 'documents'
 
     def create(self, request: Request):
         uploaded_file = request.data['document']
@@ -91,7 +81,7 @@ class DocumentViewSet(ViewSet):
                 continue
             files.append({
                 'name': file.stem,
-                'link': f'/static/documents/{file.name}',
+                'link': f'{settings.MEDIA_URL}documents/{file.name}',
             })
         return Response(files)
 
@@ -113,6 +103,6 @@ class DocumentViewSet(ViewSet):
             if file_name in file.stem:
                 files.append({
                     'name': file.stem,
-                    'link': f'/static/documents/{file.name}',
+                    'link': f'{settings.MEDIA_URL}documents/{file.name}',
                 })
         return Response(files)

@@ -139,6 +139,9 @@ STATIC_DIR = project_root / 'static'
 STATICFILES_DIRS = [STATIC_DIR]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = project_root / 'media'
+
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
